@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Document Requests</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item>
+      <ion-label position="stacked">Document Type</ion-label>
+      <ion-select placeholder="Select document type">
+        <ion-select-option value="clearance">Barangay Clearance</ion-select-option>
+        <ion-select-option value="indigency">Certificate of Indigency</ion-select-option>
+        <ion-select-option value="permit">Business Permit</ion-select-option>
+      </ion-select>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Upload Requirements</ion-label>
+      <ion-button expand="block" fill="outline" (click)="uploadFile()">
+        <ion-icon slot="start" name="cloud-upload"></ion-icon>
+        Upload File
+      </ion-button>
+    </ion-item>
+
+    <ion-button expand="block" (click)="submitRequest()">Submit Request</ion-button>
+  </ion-list>
+
+  <ion-list>
+    <ion-list-header>
+      <ion-label>Previous Requests</ion-label>
+    </ion-list-header>
+    <ion-item *ngFor="let request of requests">
+      <ion-label>
+        <h3>{{ request.type | titlecase }}</h3>
+        <p>{{ request.date | date }}</p>
+        <p [style.color]="getStatusColor(request.status)">{{ request.status }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+</ion-content>
