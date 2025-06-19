@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -21,9 +22,39 @@ export class HomePage {
     { title: 'Feedback', path: 'feedback', icon: 'thumbs-up' }
   ];
 
-  constructor(private router: Router) {}
+  showAdminLogin = false;
+  adminUsername = '';
+  adminPassword = '';
+
+  constructor(
+    private router: Router,
+    private alertController: AlertController
+  ) {}
 
   navigateTo(page: string) {
     this.router.navigate([page]);
+  }
+
+  openNotifications() {
+    this.router.navigate(['notifications']);
+  }
+
+  toggleAdminLogin() {
+    this.showAdminLogin = !this.showAdminLogin;
+  }
+
+  async adminLogin() {
+    if (this.adminUsername === 'admin' && this.adminPassword === 'admin123') {
+      localStorage.setItem('isAdmin', 'true');
+      this.showAdminLogin = false;
+      this.router.navigate(['/admin']);
+    } else {
+      const alert = await this.alertController.create({
+        header: 'Login Failed',
+        message: 'Invalid username or password',
+        buttons: ['OK']
+      });
+      await alert.present();
+    }
   }
 }

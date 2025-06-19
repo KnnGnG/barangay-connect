@@ -1,8 +1,5 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
-    </ion-buttons>
     <ion-title>Admin Dashboard</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -40,9 +37,13 @@
       <ion-badge slot="end" [color]="action.color">{{ action.count }}</ion-badge>
     </ion-item>
   </ion-list>
-
-  <ion-button expand="block" color="danger" (click)="logout()">
-    <ion-icon slot="start" name="log-out"></ion-icon>
-    Logout
-  </ion-button>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <ion-button expand="block" color="danger" (click)="logout()">
+      <ion-icon slot="start" name="log-out"></ion-icon>
+      Logout
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-admin',
@@ -22,10 +23,17 @@ export class AdminPage {
     { title: 'Aid Applications', count: 4, icon: 'help-buoy', color: 'tertiary', link: '/admin/aid' }
   ];
 
-  constructor(private navCtrl: NavController) {}
+  constructor(
+    private navCtrl: NavController,
+    private router: Router
+  ) {
+    if (localStorage.getItem('isAdmin') !== 'true') {
+      this.router.navigate(['/home']);
+    }
+  }
 
   logout() {
-    // Implement logout logic
+    localStorage.removeItem('isAdmin');
     this.navCtrl.navigateRoot('/home');
   }
 }
