@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
 import { IonicModule } from '@ionic/angular';
-
 import { AidPageRoutingModule } from './aid-routing.module';
-
 import { AidPage } from './aid.page';
+import { TruncatePipe } from '../../pipes/truncate.pipe';
 
 @NgModule({
   imports: [
@@ -15,6 +13,6 @@ import { AidPage } from './aid.page';
     IonicModule,
     AidPageRoutingModule
   ],
-  declarations: [AidPage]
+  declarations: [AidPage, TruncatePipe]
 })
 export class AidPageModule {}

@@ -1,13 +1,67 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Aid</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Aid/Relief</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Aid</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Apply for Aid/Relief</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Aid Type</ion-label>
+        <ion-select [(ngModel)]="aidType" placeholder="Select aid type">
+          <ion-select-option value="financial">Financial Assistance</ion-select-option>
+          <ion-select-option value="food">Food Pack</ion-select-option>
+          <ion-select-option value="medical">Medical Assistance</ion-select-option>
+          <ion-select-option value="other">Other</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Reason for Request</ion-label>
+        <ion-textarea [(ngModel)]="reason" rows="3" placeholder="Explain why you need assistance"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Family Size</ion-label>
+        <ion-input type="number" [(ngModel)]="familySize" placeholder="Number of family members"></ion-input>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Upload Proof (Optional)</ion-label>
+        <ion-button expand="block" fill="outline" (click)="uploadProof()">
+          <ion-icon slot="start" name="cloud-upload"></ion-icon>
+          Upload Document
+        </ion-button>
+      </ion-item>
+
+      <ion-button expand="block" (click)="submitApplication()" [disabled]="!aidType || !reason || !familySize">
+        Submit Application
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list-header>
+    <ion-label>My Applications</ion-label>
+  </ion-list-header>
+
+  <ion-card *ngFor="let application of applications">
+    <ion-item lines="none">
+      <ion-icon slot="start" [name]="getAidIcon(application.type)" color="primary"></ion-icon>
+      <ion-label>
+        <h3>{{ getAidTypeName(application.type) }}</h3>
+        <p>Submitted on {{ application.date | date:'mediumDate' }}</p>
+        <p>{{ application.reason | truncate:50 }}</p>
+      </ion-label>
+      <ion-badge [color]="getStatusColor(application.status)">
+        {{ application.status | titlecase }}
+      </ion-badge>
+    </ion-item>
+  </ion-card>
 </ion-content>

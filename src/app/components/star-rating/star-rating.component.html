@@ -1,3 +1,6 @@
-<p>
-  star-rating works!
-</p>
+<div class="star-rating">
+  <ion-icon *ngFor="let star of [1,2,3,4,5]" 
+            [name]="star <= rating ? 'star' : 'star-outline'" 
+            (click)="!readonly && setRating(star)"
+            [color]="star <= rating ? 'warning' : 'medium'"></ion-icon>
+</div>
