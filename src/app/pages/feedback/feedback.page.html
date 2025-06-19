@@ -1,13 +1,56 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
     <ion-title>Feedback</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Feedback</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Service Feedback</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Service Type</ion-label>
+        <ion-select [(ngModel)]="serviceType" placeholder="Select service">
+          <ion-select-option value="document">Document Processing</ion-select-option>
+          <ion-select-option value="complaint">Complaint Handling</ion-select-option>
+          <ion-select-option value="appointment">Appointment</ion-select-option>
+          <ion-select-option value="general">General Service</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label>Rating</ion-label>
+        <app-star-rating [(rating)]="rating"></app-star-rating>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Comments</ion-label>
+        <ion-textarea [(ngModel)]="comments" rows="4" placeholder="Share your experience..."></ion-textarea>
+      </ion-item>
+
+      <ion-button expand="block" (click)="submitFeedback()" [disabled]="!serviceType || rating === 0">
+        Submit Feedback
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list-header>
+    <ion-label>My Feedback History</ion-label>
+  </ion-list-header>
+
+  <ion-card *ngFor="let feedback of feedbackHistory">
+    <ion-item lines="none">
+      <ion-label>
+        <h3>{{ getServiceTypeName(feedback.serviceType) }}</h3>
+        <app-star-rating [rating]="feedback.rating" [readonly]="true"></app-star-rating>
+        <p>{{ feedback.date | date:'mediumDate' }}</p>
+        <p *ngIf="feedback.comments">{{ feedback.comments }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-card>
 </ion-content>
