@@ -1,13 +1,52 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Reports</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Report Incident</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Reports</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Incident Details</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Incident Type</ion-label>
+        <ion-select [(ngModel)]="incidentType" placeholder="Select incident type">
+          <ion-select-option value="crime">Crime</ion-select-option>
+          <ion-select-option value="accident">Accident</ion-select-option>
+          <ion-select-option value="nuisance">Nuisance</ion-select-option>
+          <ion-select-option value="other">Other</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Description</ion-label>
+        <ion-textarea [(ngModel)]="description" rows="4" placeholder="Describe the incident in detail"></ion-textarea>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Upload Photo (Optional)</ion-label>
+        <ion-button expand="block" fill="outline" (click)="takePhoto()">
+          <ion-icon slot="start" name="camera"></ion-icon>
+          Take Photo
+        </ion-button>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Location</ion-label>
+        <ion-button expand="block" fill="outline" (click)="getLocation()">
+          <ion-icon slot="start" name="location"></ion-icon>
+          Get Current Location
+        </ion-button>
+      </ion-item>
+
+      <ion-button expand="block" (click)="submitReport()" [disabled]="!incidentType || !description">
+        Submit Report
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

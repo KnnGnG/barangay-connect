@@ -1,13 +1,62 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
     <ion-title>Appointments</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Appointments</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>Schedule Appointment</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-item>
+        <ion-label position="stacked">Purpose</ion-label>
+        <ion-select [(ngModel)]="appointmentPurpose" placeholder="Select purpose">
+          <ion-select-option value="meeting">Meeting with Official</ion-select-option>
+          <ion-select-option value="document">Document Processing</ion-select-option>
+          <ion-select-option value="complaint">Complaint</ion-select-option>
+          <ion-select-option value="other">Other</ion-select-option>
+        </ion-select>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Date</ion-label>
+        <ion-datetime [(ngModel)]="appointmentDate" displayFormat="MMM DD, YYYY" min="{{minDate}}" max="{{maxDate}}"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Time</ion-label>
+        <ion-datetime [(ngModel)]="appointmentTime" displayFormat="h:mm A" minuteValues="0,15,30,45"></ion-datetime>
+      </ion-item>
+
+      <ion-item>
+        <ion-label position="stacked">Notes (Optional)</ion-label>
+        <ion-textarea [(ngModel)]="appointmentNotes" rows="2" placeholder="Additional information"></ion-textarea>
+      </ion-item>
+
+      <ion-button expand="block" (click)="scheduleAppointment()" [disabled]="!appointmentPurpose || !appointmentDate || !appointmentTime">
+        Schedule Appointment
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-list-header>
+    <ion-label>Upcoming Appointments</ion-label>
+  </ion-list-header>
+
+  <ion-card *ngFor="let appointment of appointments" (click)="viewAppointment(appointment.id)">
+    <ion-item lines="none">
+      <ion-icon slot="start" name="calendar" color="primary"></ion-icon>
+      <ion-label>
+        <h3>{{ getPurposeName(appointment.purpose) }}</h3>
+        <p>{{ appointment.date | date:'mediumDate' }} at {{ appointment.time }}</p>
+        <p *ngIf="appointment.notes">{{ appointment.notes }}</p>
+      </ion-label>
+      <ion-badge color="medium">{{ appointment.status }}</ion-badge>
+    </ion-item>
+  </ion-card>
 </ion-content>

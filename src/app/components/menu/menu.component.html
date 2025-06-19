@@ -1,48 +1,46 @@
 <ion-list>
-  <ion-menu-toggle auto-hide="false">
-    <ion-item (click)="navigateTo('home')">
-      <ion-icon slot="start" name="home"></ion-icon>
-      <ion-label>Home</ion-label>
-    </ion-item>
+  <ion-item button (click)="navigateTo('home')">
+    <ion-icon slot="start" name="home"></ion-icon>
+    <ion-label>Home</ion-label>
+  </ion-item>
 
-    <ion-item (click)="navigateTo('documents')">
-      <ion-icon slot="start" name="document-text"></ion-icon>
-      <ion-label>Documents</ion-label>
-    </ion-item>
+  <ion-item button (click)="navigateTo('documents')">
+    <ion-icon slot="start" name="document-text"></ion-icon>
+    <ion-label>Documents</ion-label>
+  </ion-item>
 
-    <ion-item (click)="navigateTo('reports')">
-      <ion-icon slot="start" name="alert-circle"></ion-icon>
-      <ion-label>Report Incident</ion-label>
-    </ion-item>
+  <ion-item button (click)="navigateTo('reports')">
+    <ion-icon slot="start" name="alert-circle"></ion-icon>
+    <ion-label>Report Incident</ion-label>
+  </ion-item>
 
-    <ion-item (click)="navigateTo('appointments')">
-      <ion-icon slot="start" name="calendar"></ion-icon>
-      <ion-label>Appointments</ion-label>
-    </ion-item>
+  <ion-item button (click)="navigateTo('appointments')">
+    <ion-icon slot="start" name="calendar"></ion-icon>
+    <ion-label>Appointments</ion-label>
+  </ion-item>
 
-    <ion-item (click)="navigateTo('chat')">
-      <ion-icon slot="start" name="chatbubbles"></ion-icon>
-      <ion-label>Live Chat</ion-label>
-    </ion-item>
+  <ion-item button (click)="navigateTo('chat')">
+    <ion-icon slot="start" name="chatbubbles"></ion-icon>
+    <ion-label>Live Chat</ion-label>
+  </ion-item>
 
-    <ion-item (click)="navigateTo('polls')">
-      <ion-icon slot="start" name="people"></ion-icon>
-      <ion-label>Community Polls</ion-label>
-    </ion-item>
+  <ion-item button (click)="navigateTo('polls')">
+    <ion-icon slot="start" name="people"></ion-icon>
+    <ion-label>Community Polls</ion-label>
+  </ion-item>
 
-    <ion-item (click)="navigateTo('aid')">
-      <ion-icon slot="start" name="help-buoy"></ion-icon>
-      <ion-label>Aid/Relief</ion-label>
-    </ion-item>
+  <ion-item button (click)="navigateTo('aid')">
+    <ion-icon slot="start" name="help-buoy"></ion-icon>
+    <ion-label>Aid/Relief</ion-label>
+  </ion-item>
 
-    <ion-item (click)="navigateTo('feedback')">
-      <ion-icon slot="start" name="thumbs-up"></ion-icon>
-      <ion-label>Feedback</ion-label>
-    </ion-item>
+  <ion-item button (click)="navigateTo('feedback')">
+    <ion-icon slot="start" name="thumbs-up"></ion-icon>
+    <ion-label>Feedback</ion-label>
+  </ion-item>
 
-    <ion-item (click)="navigateTo('admin')" *ngIf="isAdmin">
-      <ion-icon slot="start" name="settings"></ion-icon>
-      <ion-label>Admin Dashboard</ion-label>
-    </ion-item>
-  </ion-menu-toggle>
+  <ion-item button (click)="navigateTo('admin')" *ngIf="isAdmin">
+    <ion-icon slot="start" name="settings"></ion-icon>
+    <ion-label>Admin Dashboard</ion-label>
+  </ion-item>
 </ion-list>

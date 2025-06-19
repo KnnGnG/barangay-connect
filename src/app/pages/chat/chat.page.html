@@ -1,13 +1,35 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Chat</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Live Chat</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="toggleChatbot()">
+        <ion-icon slot="icon-only" name="help-circle"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
+<ion-content class="ion-padding">
+  <div class="chat-container">
+    <div *ngFor="let message of messages" class="message" [class.sent]="message.sent" [class.received]="!message.sent">
+      <div class="message-content">
+        <p>{{ message.text }}</p>
+        <span class="message-time">{{ message.time | date:'shortTime' }}</span>
+      </div>
+    </div>
+  </div>
+
+  <ion-footer>
     <ion-toolbar>
-      <ion-title size="large">Chat</ion-title>
+      <ion-item>
+        <ion-input [(ngModel)]="newMessage" placeholder="Type your message" (keyup.enter)="sendMessage()"></ion-input>
+        <ion-button slot="end" fill="clear" (click)="sendMessage()" [disabled]="!newMessage">
+          <ion-icon name="send"></ion-icon>
+        </ion-button>
+      </ion-item>
     </ion-toolbar>
-  </ion-header>
+  </ion-footer>
 </ion-content>

@@ -1,13 +1,36 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>Polls</ion-title>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Community Polls</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Polls</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-card *ngFor="let poll of activePolls" class="poll-card">
+    <ion-card-header>
+      <ion-card-title>{{ poll.question }}</ion-card-title>
+      <ion-card-subtitle>Ends on {{ poll.endDate | date:'mediumDate' }}</ion-card-subtitle>
+    </ion-card-header>
+    
+    <ion-card-content>
+      <ion-list>
+        <ion-item *ngFor="let option of poll.options" (click)="vote(poll.id, option.id)" [disabled]="hasVoted(poll.id)">
+          <ion-label>{{ option.text }}</ion-label>
+          <ion-badge slot="end" color="light">{{ option.votes }} votes</ion-badge>
+        </ion-item>
+      </ion-list>
+      
+      <ion-progress-bar *ngIf="hasVoted(poll.id)" [value]="getTotalVotes(poll) > 0 ? getOptionPercentage(poll, getSelectedOption(poll.id)) : 0"></ion-progress-bar>
+      <p *ngIf="hasVoted(poll.id)" class="voted-message">You voted for: {{ getSelectedOptionText(poll.id) }}</p>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="activePolls.length === 0" class="no-polls">
+    <ion-card-content>
+      <ion-icon name="information-circle" color="medium"></ion-icon>
+      <p>No active polls at the moment. Check back later!</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
