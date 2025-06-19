@@ -1,0 +1,31 @@
+.stat-card {
+  text-align: center;
+  padding: 15px;
+  background: rgba(var(--ion-color-primary-rgb), 0.1);
+  border-radius: 8px;
+  
+  h2 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: var(--ion-color-primary);
+  }
+  
+  p {
+    margin: 5px 0 0;
+    color: var(--ion-color-medium);
+  }
+}
+
+ion-list {
+  margin-top: 20px;
+  
+  ion-item {
+    --padding-start: 10px;
+    margin-bottom: 8px;
+    border-radius: 8px;
+    
+    ion-icon {
+      font-size: 1.5rem;
+    }
+  }
+}

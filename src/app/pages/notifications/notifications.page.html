@@ -1,13 +1,27 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
     <ion-title>Notifications</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="markAllAsRead()">
+        <ion-icon slot="icon-only" name="checkmark-done"></ion-icon>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">Notifications</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content class="ion-padding">
+  <ion-list>
+    <ion-item *ngFor="let notification of notifications" [class.unread]="!notification.read" (click)="viewNotification(notification)">
+      <ion-icon slot="start" [name]="getNotificationIcon(notification.type)" [color]="getNotificationColor(notification.type)"></ion-icon>
+      <ion-label>
+        <h3>{{ notification.title }}</h3>
+        <p>{{ notification.message }}</p>
+        <p class="notification-time">{{ notification.time | date:'short' }}</p>
+      </ion-label>
+      <ion-badge *ngIf="!notification.read" color="primary"></ion-badge>
+    </ion-item>
+  </ion-list>
 </ion-content>

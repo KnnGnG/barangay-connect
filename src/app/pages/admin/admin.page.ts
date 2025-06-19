@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-admin',
@@ -6,11 +7,25 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./admin.page.scss'],
   standalone: false,
 })
-export class AdminPage implements OnInit {
+export class AdminPage {
+  quickStats = [
+    { label: 'Document Requests', value: 24 },
+    { label: 'Incident Reports', value: 8 },
+    { label: 'Appointments', value: 15 },
+    { label: 'Aid Applications', value: 12 }
+  ];
 
-  constructor() { }
+  pendingActions = [
+    { title: 'Document Approvals', count: 5, icon: 'document-text', color: 'primary', link: '/admin/documents' },
+    { title: 'Incident Reports', count: 3, icon: 'alert-circle', color: 'danger', link: '/admin/reports' },
+    { title: 'Appointments', count: 7, icon: 'calendar', color: 'secondary', link: '/admin/appointments' },
+    { title: 'Aid Applications', count: 4, icon: 'help-buoy', color: 'tertiary', link: '/admin/aid' }
+  ];
 
-  ngOnInit() {
+  constructor(private navCtrl: NavController) {}
+
+  logout() {
+    // Implement logout logic
+    this.navCtrl.navigateRoot('/home');
   }
-
 }
